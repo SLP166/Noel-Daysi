@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Invitación de Boda - Noel & Daysi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -194,6 +194,7 @@
       bottom: 10px;
       border: 1px solid rgba(160, 82, 45, 0.1);
       pointer-events: none;
+      border-radius: 2px;
     }
 
     .card.show {
@@ -202,35 +203,20 @@
     }
 
     .floral-circle {
-      background: #d6bfa7;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      margin: 0 auto 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5em;
-      color: #4a3b32;
       position: relative;
-      z-index: 1;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
-      border: 1px solid #c9a982;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 30px;
+      border-radius: 50%;
       overflow: hidden;
     }
 
-    .floral-circle::before {
-      content: "";
-      position: absolute;
-      background: url('https://i.ibb.co/6Y4yJ3T/elegant-white-wedding-flowers.png') no-repeat center;
-      background-size: cover;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: -1;
-      opacity: 0.9;
+    .floral-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
     }
 
     h2 {
@@ -335,23 +321,24 @@
   <div class="invitation-content" id="invitationContent">
     <div class="card" id="card">
       <div class="floral-circle floating">
-        <span>Noel<br>& Daysi</span>
+        <img src="https://i.ibb.co/ymvVNxGP/247d4c06-e698-4878-9ae0-cd1b16a27eba.png" alt="Sello de boda" />
       </div>
       <h2>¡Nos casamos!</h2>
       <div class="date">4 de julio de 2025 | 6:00 PM a 12:00 AM</div>
       <div class="countdown" id="countdown">Cargando cuenta regresiva...</div>
       
       <div class="info">
-  <i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong><br>
-  Ricardo's Barbería, Tijuana, México<br>
-  <a href="https://maps.google.com/maps/search/Ricardo's%20Barber%C3%ADa/@32.50423049926758,-116.9163818359375,17z?hl=es" target="_blank">Ver en Google Maps</a>
-</div>
+        <i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong><br />
+        Ricardo's Barbería, Tijuana, México<br />
+        <a href="https://maps.google.com/maps/search/Ricardo's%20Barber%C3%ADa/@32.50423049926758,-116.9163818359375,17z?hl=es" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a>
+      </div>
 
-<div class="info">
-  <i class="fas fa-calendar-check"></i> <strong>Confirma tu asistencia:</strong><br>
-  <a href="https://forms.gle/tu-formulario" target="_blank" class="rsvp-btn">RSVP</a>
-</div>
-
+      <div class="info">
+        <i class="fas fa-calendar-check"></i> <strong>Confirma tu asistencia:</strong><br />
+        <a href="https://forms.gle/tu-formulario" target="_blank" class="rsvp-btn" rel="noopener noreferrer">RSVP</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Mostrar el sobre al cargar la página
@@ -359,7 +346,7 @@
       setTimeout(function() {
         document.getElementById('envelopeOverlay').style.opacity = '1';
       }, 300);
-      
+
       // Agregar efecto de sonido ambiental
       const ambientSound = new Audio('https://www.soundjay.com/nature/sounds/river-01.mp3');
       ambientSound.loop = true;
@@ -371,24 +358,24 @@
     const countdown = document.getElementById("countdown");
     const targetDate = new Date("2025-07-04T18:00:00").getTime();
     const envelopeFront = document.getElementById("envelopeFront");
-    
+
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
-      
+
       if (distance < 0) {
         countdown.innerHTML = "¡Ya es el gran día!";
         return;
       }
-      
+
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hrs = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((distance % (1000 * 60)) / 1000);
-      
+
       countdown.innerHTML = `${days} días, ${hrs} horas, ${mins} minutos, ${secs} segundos`;
     }
-    
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
@@ -403,45 +390,45 @@
       // Desactivar el sello
       seal.style.pointerEvents = 'none';
       seal.style.animation = 'none';
-      
+
       // Mejorar visibilidad de la textura antes de abrir
       envelopeFront.style.background = 
         'linear-gradient(rgba(232, 215, 197, 0.4), rgba(232, 215, 197, 0.4)), url("https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp") center center';
       envelopeFront.style.backgroundSize = 'cover';
       envelopeFront.style.filter = 'brightness(1) contrast(1)';
-      
+
       // Sonido de romper el sello
       const breakSound = new Audio('https://www.soundjay.com/mechanical/sounds/paper-tearing-01.mp3');
       breakSound.volume = 0.4;
       breakSound.play();
-      
+
       // Animación de romper el sello
       seal.style.transform = 'scale(1.1) rotate(10deg)';
       setTimeout(function() {
         seal.style.opacity = '0';
         seal.style.transform = 'scale(0.8) rotate(20deg)';
-        
+
         // Sonido de abrir el sobre
         const openSound = new Audio('https://www.soundjay.com/mechanical/sounds/envelope-open-01.mp3');
         openSound.volume = 0.5;
         openSound.play();
-        
+
         // Animación de abrir el sobre
         envelope.classList.add('open');
-        
+
         // Ocultar el sobre después de la animación
         setTimeout(function() {
           envelopeOverlay.style.opacity = '0';
-          
+
           // Mostrar el contenido de la invitación
           setTimeout(function() {
             envelopeOverlay.style.display = 'none';
             invitationContent.style.display = 'block';
-            
+
             // Animación de aparición de la tarjeta
             setTimeout(function() {
               card.classList.add('show');
-              
+
               // Sonido de música romántica
               const music = new Audio('https://www.soundjay.com/misc/sounds/wedding-song-02.mp3');
               music.loop = true;
@@ -458,7 +445,7 @@
       seal.style.transform = 'scale(1.1)';
       seal.style.boxShadow = '0 8px 25px rgba(160, 82, 45, 0.5)';
     });
-    
+
     seal.addEventListener('mouseleave', function() {
       if (!envelope.classList.contains('open')) {
         seal.style.transform = 'scale(1)';
@@ -468,3 +455,4 @@
   </script>
 </body>
 </html>
+
