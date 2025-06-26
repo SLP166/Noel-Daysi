@@ -83,72 +83,106 @@
     }
 
     /* Estilos de la carta - Solución definitiva */
-    .letter {
-      position: absolute;
-      width: 90%;
-      height: 90%;
-      top: 5%;
-      left: 5%;
-      z-index: 3;
-      transform-style: preserve-3d;
-      transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
+   .letter {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  z-index: 3;
+  transform-style: preserve-3d;
+  transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: var(--paper-bg); /* 👈 fondo neutro mientras gira */
+}
 
-    .letter-page {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: var(--paper-bg);
-      backface-visibility: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      border: 1px solid #e0d0b0;
-      padding: 40px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      border: 8px double var(--primary-color);
-      border-radius: 12px;
-    }
+.letter {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  z-index: 3;
+  transform-style: preserve-3d;
+  transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
+  background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc); /* 🟠 fondo como el front */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-    .letter-front {
-      transform: rotateY(0deg);
-      background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc);
-    }
+/* Ocultamos la cara no visible */
+.letter-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0d0b0;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  border: 8px double var(--primary-color);
+  border-radius: 12px;
+}
 
-    .letter-back {
-      transform: rotateY(180deg);
-    }
+.letter-front {
+  transform: translateX(0);
+  background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc);
+  opacity: 1;
+  z-index: 2;
+  transition: transform 2s ease, opacity 2s ease;
+}
 
-    .letter.open {
-      transform: rotateY(180deg);
-    }
+.letter-back {
+  transform: translateX(100%);
+  background: var(--paper-bg);
+  opacity: 0;
+  z-index: 1;
+  transition: transform 2s ease, opacity 2s ease;
+}
 
-    /* Solapa del sobre */
-    .envelope-flap {
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background: var(--envelope-color);
-      border-radius: 5px 5px 0 0;
-      z-index: 4;
-      transform-origin: top;
-      transform: rotateX(0deg);
-      transition: transform 1.5s cubic-bezier(0.33, 1, 0.68, 1);
-      box-shadow:
-        0 -10px 30px rgba(0, 0, 0, 0.2),
-        inset 0 5px 10px rgba(255, 255, 255, 0.3),
-        inset 0 0 0 5px var(--border-color);
-      border: 1px solid var(--border-color);
-      border-bottom: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.letter.open .letter-front {
+  transform: translateX(-100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.letter.open .letter-back {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 2;
+}
+
+
+
+  .envelope-flap {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: #e8d7c5; /* o var(--envelope-color) */
+  border-radius: 5px 5px 0 0;
+  z-index: 4;
+  transform-origin: top;
+  transform: rotateX(0deg);
+  transition: transform 1.5s cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* Marco tipo letter-page */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 8px double var(--primary-color); /* borde doble visible */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+
+
+
 
     .envelope.open .envelope-flap {
       transform: rotateX(180deg);
@@ -356,8 +390,8 @@
         <div class="envelope-back"></div>
         <div class="letter" id="letter">
           <div class="letter-page letter-front">
-            <h3 style="font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #5a4a3a; margin-bottom: 20px; transform: rotate(-2deg);">Noel & Daysi</h3>
-            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3em; color: var(--text-color); line-height: 1.6; transform: rotate(-1deg);">
+            <h3 style="font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #5a4a3a; margin-bottom: 20px; transform: rotate(-0deg);">Noel & Daysi</h3>
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3em; color: var(--text-color); line-height: 1.6; transform: rotate(-0deg);">
               ¡Te esperamos en nuestro día más especial!
             </p>
           </div>
@@ -488,4 +522,3 @@
   </script>
 </body>
 </html>
-
