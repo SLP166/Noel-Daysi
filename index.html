@@ -82,7 +82,7 @@
       border: 1px solid var(--border-color);
     }
 
-    /* Estilos de la carta - Solución definitiva */
+    /* Estilos de la carta - Versión corregida */
     .letter {
       position: absolute;
       width: 90%;
@@ -90,19 +90,15 @@
       top: 5%;
       left: 5%;
       z-index: 3;
-      transform-style: preserve-3d;
-      transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      background: transparent; /* Fondo transparente para evitar el blanco */
+      overflow: hidden;
+      background: transparent; /* Fondo transparente */
     }
 
-    /* Ocultamos la cara no visible */
     .letter-page {
       position: absolute;
       width: 100%;
       height: 100%;
-      backface-visibility: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc);
       border: 2px double var(--primary-color);
       border-radius: 12px;
       padding: 40px;
@@ -112,38 +108,33 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      overflow: hidden;
-      z-index: 1;
-      background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc); /* Mismo fondo para ambas caras */
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 1.5s cubic-bezier(0.33, 1, 0.68, 1), opacity 1.5s ease;
     }
 
     /* Frente de la carta */
     .letter-front {
-      transform: rotateY(0deg);
+      transform: translateX(0);
       opacity: 1;
       z-index: 2;
-      transition: transform 2s ease, opacity 2s ease;
     }
 
     /* Reverso de la carta */
     .letter-back {
-      transform: rotateY(180deg);
+      transform: translateX(100%);
       opacity: 0;
       z-index: 1;
-      transition: transform 2s ease, opacity 2s ease;
     }
 
     /* Transición al abrir */
     .letter.open .letter-front {
-      transform: rotateY(180deg);
+      transform: translateX(-100%);
       opacity: 0;
-      z-index: 1;
     }
 
     .letter.open .letter-back {
-      transform: rotateY(360deg);
+      transform: translateX(0);
       opacity: 1;
-      z-index: 2;
     }
 
     .envelope-flap {
@@ -227,8 +218,7 @@
       font-family: 'Playfair Display', serif;
       opacity: 0;
       transition: opacity 2s ease;
-      border: 1px solid var(--primary-color);
-      box-shadow: 0 0 8px rgba(160, 82, 45, 0.4);
+      
     }
 
     .invitation-content.show {
