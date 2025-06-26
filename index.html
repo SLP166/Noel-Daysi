@@ -10,8 +10,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Playfair Display', serif;
-      background: url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') no-repeat center center;
-      background-size: cover;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat, #f5f0e9;
       background-attachment: fixed;
       color: #3d322c;
       overflow-x: hidden;
@@ -29,6 +28,7 @@
       justify-content: center;
       align-items: center;
       opacity: 1;
+      transition: opacity 1s ease;
     }
 
     .envelope-container {
@@ -44,22 +44,53 @@
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
+      transition: transform 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     }
 
+    /* Frente del sobre con textura, borde y sombra */
     .envelope-front {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: linear-gradient(rgba(232, 215, 197, 0.7), rgba(232, 215, 197, 0.7)), url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') center center;
+      background: 
+        linear-gradient(rgba(232, 215, 197, 0.7), rgba(232, 215, 197, 0.7)),
+        url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') center center;
       background-size: cover;
       border-radius: 2px;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+      box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.4),
+        inset 0 0 30px rgba(0,0,0,0.1);
       z-index: 2;
       transform-origin: bottom;
-      transition: all 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       display: flex;
       justify-content: center;
       align-items: center;
+      border: 1px solid #c9a982;
+      overflow: hidden;
+      filter: brightness(0.9) contrast(1.1);
+      transition: filter 0.3s;
+    }
+
+    .envelope-front::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 20px;
+      background: linear-gradient(to bottom, rgba(232, 215, 197, 0.8), rgba(232, 215, 197, 0));
+    }
+
+    .envelope-front::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(160, 82, 45, 0.1);
+      pointer-events: none;
+      border-radius: 2px;
     }
 
     .envelope-back {
@@ -69,14 +100,16 @@
       background: #f5e9dc;
       border-radius: 2px;
       z-index: 1;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.1);
     }
 
+    /* Sello grande con animación pulso */
     .seal {
       position: absolute;
       bottom: 30px;
       right: 30px;
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       background: linear-gradient(135deg, #a0522d, #8c3e1f);
       border-radius: 50%;
       display: flex;
@@ -84,35 +117,59 @@
       align-items: center;
       color: white;
       font-family: 'Great Vibes', cursive;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
       z-index: 3;
+      box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        inset 0 -5px 10px rgba(0,0,0,0.2),
+        inset 0 5px 10px rgba(255,255,255,0.1);
+      transition: all 0.3s;
       animation: pulse 2s infinite;
+      border: 2px solid #8c3e1f;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(160, 82, 45, 0.7); }
-      70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(160, 82, 45, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(160, 82, 45, 0); }
+    .seal::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
     }
 
+    /* Animación de abrir: rotar el frente 180° sobre el eje X */
+    .open .envelope-front {
+      transform-origin: bottom;
+      transform: rotateX(180deg);
+      filter: brightness(1) contrast(1);
+      transition: transform 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), filter 0.3s;
+    }
+
+    /* Contenido invitación inicialmente oculto */
     .invitation-content {
       display: none;
       max-width: 800px;
       margin: 60px auto;
       text-align: center;
       padding: 30px;
-      background-color: rgba(255, 255, 255, 0.85);
+      background: url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') center center;
+      background-size: cover;
       border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      color: #4a3b32;
+      font-family: 'Playfair Display', serif;
     }
 
     .floral-circle {
-      width: 300px;
-      height: 300px;
+      width: 400px;
+      height: 400px;
       border-radius: 50%;
       overflow: hidden;
-      margin: 0 auto 20px;
+      margin: 0 auto 30px;
       animation: float 6s ease-in-out infinite;
     }
 
@@ -125,12 +182,12 @@
     h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 3.5rem;
-      margin: 20px 0;
+      margin: 10px 0 20px;
       opacity: 0;
       animation: fadeInDown 4s forwards;
     }
 
-    .date, .countdown, .info {
+    .date, .countdown, .info, .rsvp-btn {
       opacity: 0;
       animation: fadeInUp 4s forwards;
     }
@@ -152,6 +209,7 @@
       animation-delay: 3s;
       font-size: 1.2rem;
       line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     .rsvp-btn {
@@ -165,6 +223,7 @@
       font-weight: bold;
       transition: background 0.3s;
       font-family: 'Open Sans', sans-serif;
+      animation-delay: 4s;
     }
 
     .rsvp-btn:hover {
@@ -186,6 +245,7 @@
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
+
   </style>
 </head>
 <body>
@@ -238,19 +298,46 @@
     const envelope = document.getElementById("envelope");
     const envelopeOverlay = document.getElementById("envelopeOverlay");
     const invitationContent = document.getElementById("invitationContent");
+    const envelopeFront = document.getElementById("envelopeFront");
 
     seal.addEventListener('click', function() {
+      // Desactivar sello para evitar más clicks
       seal.style.pointerEvents = 'none';
       seal.style.animation = 'none';
-      envelope.classList.add('open');
+
+      // Mejorar visibilidad del sobre antes de abrir
+      envelopeFront.style.filter = 'brightness(1) contrast(1)';
+
+      // Sonido de romper sello
+      const breakSound = new Audio('https://www.soundjay.com/mechanical/sounds/paper-tearing-01.mp3');
+      breakSound.volume = 0.4;
+      breakSound.play();
+
+      // Animar sello
+      seal.style.transform = 'scale(1.1) rotate(10deg)';
       setTimeout(() => {
-        envelopeOverlay.style.opacity = '0';
-        envelopeOverlay.style.pointerEvents = 'none';
-        invitationContent.style.display = 'block';
-      }, 2000);
+        seal.style.opacity = '0';
+        seal.style.transform = 'scale(0.8) rotate(20deg)';
+
+        // Sonido de abrir sobre
+        const openSound = new Audio('https://www.soundjay.com/mechanical/sounds/zipper-1.mp3');
+        openSound.volume = 0.3;
+        openSound.play();
+
+        // Abrir sobre con rotación
+        envelope.classList.add('open');
+
+        // Mostrar invitación tras animación
+        setTimeout(() => {
+          envelopeOverlay.style.opacity = '0';
+          envelopeOverlay.style.pointerEvents = 'none';
+          invitationContent.style.display = 'block';
+        }, 1800);
+      }, 700);
     });
   </script>
 </body>
 </html>
+
 
 
