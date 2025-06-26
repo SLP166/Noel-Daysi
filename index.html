@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Invitación de Boda - Noel & Daysi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&family=Cormorant+Garamond:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -20,8 +20,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background-color: rgba(0, 0, 0, 0.8);
       z-index: 1000;
       display: flex;
@@ -29,12 +29,15 @@
       align-items: center;
       opacity: 1;
       transition: opacity 1s ease;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .envelope-container {
-      width: 90%;
+      width: 100%;
       max-width: 700px;
-      height: 500px;
+      /* altura flexible, max 90vh para que no se salga */
+      height: min(90vh, 500px);
       position: relative;
       perspective: 2000px;
     }
@@ -45,9 +48,12 @@
       position: relative;
       transform-style: preserve-3d;
       transition: transform 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
 
-    /* Frente del sobre con textura, borde y sombra */
+    /* Frente del sobre */
     .envelope-front {
       position: absolute;
       width: 100%;
@@ -56,7 +62,7 @@
         linear-gradient(rgba(232, 215, 197, 0.7), rgba(232, 215, 197, 0.7)),
         url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') center center;
       background-size: cover;
-      border-radius: 2px;
+      border-radius: 8px;
       box-shadow: 
         0 15px 50px rgba(0, 0, 0, 0.4),
         inset 0 0 30px rgba(0,0,0,0.1);
@@ -69,6 +75,21 @@
       overflow: hidden;
       filter: brightness(0.9) contrast(1.1);
       transition: filter 0.3s;
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .envelope-front h2 {
+      color: #5a4a3a;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 4vw, 3em);
+      background-color: rgba(232, 215, 197, 0.7);
+      padding: 15px 30px;
+      border-radius: 30px;
+      margin: 0 auto;
+      max-width: 90%;
+      box-sizing: border-box;
     }
 
     .envelope-front::before {
@@ -90,7 +111,7 @@
       bottom: 10px;
       border: 1px solid rgba(160, 82, 45, 0.1);
       pointer-events: none;
-      border-radius: 2px;
+      border-radius: 8px;
     }
 
     .envelope-back {
@@ -98,7 +119,7 @@
       width: 100%;
       height: 100%;
       background: #f5e9dc;
-      border-radius: 2px;
+      border-radius: 8px;
       z-index: 1;
       box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.1);
     }
@@ -106,10 +127,10 @@
     /* Sello grande con animación pulso */
     .seal {
       position: absolute;
-      bottom: 30px;
-      right: 30px;
-      width: 120px;
-      height: 120px;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
       background: linear-gradient(135deg, #a0522d, #8c3e1f);
       border-radius: 50%;
       display: flex;
@@ -117,7 +138,7 @@
       align-items: center;
       color: white;
       font-family: 'Great Vibes', cursive;
-      font-size: 18px;
+      font-size: clamp(14px, 3vw, 18px);
       cursor: pointer;
       z-index: 3;
       box-shadow: 
@@ -128,6 +149,7 @@
       animation: pulse 2s infinite;
       border: 2px solid #8c3e1f;
       text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      user-select: none;
     }
 
     .seal::after {
@@ -155,18 +177,19 @@
       max-width: 800px;
       margin: 60px auto;
       text-align: center;
-      padding: 30px;
+      padding: 20px 25px;
       background: url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') center center;
       background-size: cover;
       border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       color: #4a3b32;
       font-family: 'Playfair Display', serif;
+      box-sizing: border-box;
     }
 
     .floral-circle {
-      width: 400px;
-      height: 400px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
       overflow: hidden;
       margin: 0 auto 30px;
@@ -181,7 +204,7 @@
 
     h2 {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.5rem;
+      font-size: clamp(2rem, 6vw, 3.5rem);
       margin: 10px 0 20px;
       opacity: 0;
       animation: fadeInDown 4s forwards;
@@ -194,7 +217,7 @@
 
     .date {
       animation-delay: 1s;
-      font-size: 1.7rem;
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
       margin-bottom: 15px;
     }
 
@@ -207,7 +230,7 @@
 
     .info {
       animation-delay: 3s;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
       line-height: 1.6;
       margin-bottom: 20px;
     }
@@ -224,6 +247,7 @@
       transition: background 0.3s;
       font-family: 'Open Sans', sans-serif;
       animation-delay: 4s;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     }
 
     .rsvp-btn:hover {
@@ -246,6 +270,67 @@
       100% { transform: translateY(0); }
     }
 
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Media queries para móviles */
+    @media (max-width: 600px) {
+      .envelope-container {
+        height: min(70vh, 400px);
+      }
+      .seal {
+        width: 80px;
+        height: 80px;
+        font-size: 14px;
+        bottom: 15px;
+        right: 15px;
+      }
+      .floral-circle {
+        width: 220px;
+        height: 220px;
+        margin-bottom: 20px;
+      }
+      .invitation-content {
+        margin: 40px 15px;
+        padding: 15px 20px;
+      }
+      .rsvp-btn {
+        padding: 10px 24px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .envelope-container {
+        height: min(60vh, 350px);
+      }
+      .seal {
+        width: 70px;
+        height: 70px;
+        font-size: 12px;
+        bottom: 12px;
+        right: 12px;
+      }
+      .floral-circle {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 15px;
+      }
+      h2 {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .date {
+        font-size: 1.2rem;
+      }
+      .info {
+        font-size: 1rem;
+      }
+      .rsvp-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -253,7 +338,7 @@
     <div class="envelope-container">
       <div class="envelope" id="envelope">
         <div class="envelope-front" id="envelopeFront">
-          <h2 style="color: #5a4a3a; font-family: 'Great Vibes', cursive; font-size: 3em; background-color: rgba(232, 215, 197, 0.7); padding: 15px 30px; border-radius: 30px;">Noel & Daysi</h2>
+          <h2>Noel & Daysi</h2>
         </div>
         <div class="envelope-back"></div>
         <div class="seal" id="seal">Abrir</div>
@@ -301,33 +386,25 @@
     const envelopeFront = document.getElementById("envelopeFront");
 
     seal.addEventListener('click', function() {
-      // Desactivar sello para evitar más clicks
       seal.style.pointerEvents = 'none';
       seal.style.animation = 'none';
-
-      // Mejorar visibilidad del sobre antes de abrir
       envelopeFront.style.filter = 'brightness(1) contrast(1)';
 
-      // Sonido de romper sello
       const breakSound = new Audio('https://www.soundjay.com/mechanical/sounds/paper-tearing-01.mp3');
       breakSound.volume = 0.4;
       breakSound.play();
 
-      // Animar sello
       seal.style.transform = 'scale(1.1) rotate(10deg)';
       setTimeout(() => {
         seal.style.opacity = '0';
         seal.style.transform = 'scale(0.8) rotate(20deg)';
 
-        // Sonido de abrir sobre
         const openSound = new Audio('https://www.soundjay.com/mechanical/sounds/zipper-1.mp3');
         openSound.volume = 0.3;
         openSound.play();
 
-        // Abrir sobre con rotación
         envelope.classList.add('open');
 
-        // Mostrar invitación tras animación
         setTimeout(() => {
           envelopeOverlay.style.opacity = '0';
           envelopeOverlay.style.pointerEvents = 'none';
@@ -338,6 +415,7 @@
   </script>
 </body>
 </html>
+
 
 
 
