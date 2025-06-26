@@ -4,19 +4,34 @@
   <meta charset="UTF-8" />
   <title>Invitación de Boda - Noel & Daysi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&family=Cormorant+Garamond:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet" />
   <style>
+    /* Variables CSS para colores y fuentes */
+    :root {
+      --primary-color: #a0522d;
+      --secondary-color: #8c3e1f;
+      --text-color: #3d322c;
+      --light-bg: #f5f0e9;
+      --paper-bg: #fff9f0;
+      --border-color: #d4b483;
+      --envelope-color: #e8d7c5;
+    }
+
+    /* Reset y estilos base */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Playfair Display', serif;
-      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat, #f5f0e9;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat, var(--light-bg);
       background-attachment: fixed;
-      color: #3d322c;
+      color: var(--text-color);
       overflow-x: hidden;
       min-height: 100vh;
     }
 
+    /* Estilos del sobre */
     .envelope-overlay {
       position: fixed;
       top: 0;
@@ -43,7 +58,7 @@
       max-width: 800px;
       height: 600px;
       position: relative;
-      perspective: 2000px;
+      perspective: 1200px;
       margin: 0 auto;
     }
 
@@ -64,10 +79,10 @@
       border-radius: 2px;
       z-index: 1;
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-      border: 1px solid #d4b483;
-      transform: translateZ(-10px);
+      border: 1px solid var(--border-color);
     }
 
+    /* Estilos de la carta - Solución definitiva */
     .letter {
       position: absolute;
       width: 90%;
@@ -76,7 +91,7 @@
       left: 5%;
       z-index: 3;
       transform-style: preserve-3d;
-      transition: all 2s cubic-bezier(0.33, 1, 0.68, 1);
+      transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
@@ -84,11 +99,11 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: #fff9f0;
+      background: var(--paper-bg);
       backface-visibility: hidden;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
       border: 1px solid #e0d0b0;
-      padding: 30px;
+      padding: 40px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -96,29 +111,29 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
+      border: 8px double var(--primary-color);
+      border-radius: 12px;
     }
 
     .letter-front {
       transform: rotateY(0deg);
-      z-index: 2;
-      background: linear-gradient(to bottom, #fff9f0, #f5e9dc);
+      background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc);
     }
 
     .letter-back {
       transform: rotateY(180deg);
-      background: #fff9f0;
     }
 
     .letter.open {
       transform: rotateY(180deg);
-      transition: all 2.5s cubic-bezier(0.33, 1, 0.68, 1);
     }
 
+    /* Solapa del sobre */
     .envelope-flap {
       position: absolute;
       width: 100%;
       height: 50%;
-      background: #e8d7c5;
+      background: var(--envelope-color);
       border-radius: 5px 5px 0 0;
       z-index: 4;
       transform-origin: top;
@@ -126,23 +141,27 @@
       transition: transform 1.5s cubic-bezier(0.33, 1, 0.68, 1);
       box-shadow:
         0 -10px 30px rgba(0, 0, 0, 0.2),
-        inset 0 5px 10px rgba(255, 255, 255, 0.3);
-      border: 1px solid #d4b483;
+        inset 0 5px 10px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 5px var(--border-color);
+      border: 1px solid var(--border-color);
       border-bottom: none;
-      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .envelope.open .envelope-flap {
-      transform: rotateX(180deg) translateZ(-1px);
+      transform: rotateX(180deg);
     }
 
+    /* Sello */
     .seal {
       position: absolute;
       bottom: 30px;
       right: 30px;
       width: 90px;
       height: 90px;
-      background: linear-gradient(135deg, #a0522d, #8c3e1f);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -157,13 +176,30 @@
         inset 0 -3px 8px rgba(0,0,0,0.2);
       transition: all 0.5s;
       animation: pulse 2.5s infinite;
-      border: 2px solid #8c3e1f;
+      border: 2px solid var(--secondary-color);
     }
 
     .seal:hover {
       transform: scale(1.05);
     }
 
+    /* Iniciales en la solapa */
+    .initials-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .initials {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: var(--primary-color);
+      opacity: 0.7;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Contenido de la invitación */
     .invitation-content {
       display: none;
       max-width: 800px;
@@ -172,19 +208,14 @@
       padding: 30px;
       background: url('https://www.digvitation.com/wp-content/uploads/2024/09/backgreyandrespaulete-ezgif.com-resize-scaled.webp') center center;
       background-size: cover;
-      border-radius: 10px;
+      border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      color: #4a3b32;
+      color: var(--text-color);
       font-family: 'Playfair Display', serif;
       opacity: 0;
       transition: opacity 2s ease;
-
-      /* Aquí agrega el marco: */
-  border: 5px solid #a0522d;
-  box-shadow: 0 0 15px rgba(160, 82, 45, 0.6);
-  padding: 40px;
-  border-radius: 15px; /* si quieres esquinas más redondeadas */
-
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 0 8px rgba(160, 82, 45, 0.4);
     }
 
     .invitation-content.show {
@@ -205,11 +236,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
-      margin: 0;
-      padding: 0;
     }
 
+    /* Tipografía */
     h2 {
       margin-top: -40px;
       font-family: 'Great Vibes', cursive;
@@ -218,7 +247,7 @@
 
     .date, .countdown, .info, .rsvp-btn {
       opacity: 0;
-      animation: fadeInUp 4s forwards;
+      animation: fadeInUp 1s forwards;
     }
 
     .date {
@@ -231,7 +260,7 @@
       animation-delay: 2s;
       margin-bottom: 25px;
       font-weight: bold;
-      color: #a0522d;
+      color: var(--primary-color);
     }
 
     .info {
@@ -245,7 +274,7 @@
       display: inline-block;
       margin-top: 30px;
       padding: 12px 28px;
-      background: #a0522d;
+      background: var(--primary-color);
       color: #fff;
       text-decoration: none;
       border-radius: 30px;
@@ -256,11 +285,12 @@
     }
 
     .rsvp-btn:hover {
-      background: #6e3c1f;
+      background: var(--secondary-color);
       transform: translateY(-3px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
+    /* Animaciones */
     @keyframes fadeInDown {
       0% { opacity: 0; transform: translateY(-60px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -283,102 +313,39 @@
       100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(160, 82, 45, 0); }
     }
 
-    /* Responsive adjustments */
+    /* Estilos responsivos */
     @media (max-width: 900px) {
-      .envelope-container {
-        height: 500px;
-      }
-      .seal {
-        width: 80px;
-        height: 80px;
-        font-size: 16px;
-      }
-      .envelope-flap {
-        height: 55%;
-      }
+      .envelope-container { height: 500px; }
+      .seal { width: 80px; height: 80px; font-size: 16px; }
+      .floral-circle { width: 350px; height: 350px; }
+      h2 { font-size: 3rem; }
+      .initials { font-size: 3rem; }
     }
 
     @media (max-width: 700px) {
-      .envelope-container {
-        height: 400px;
-      }
-      .seal {
-        width: 70px;
-        height: 70px;
-        font-size: 14px;
-        bottom: 20px;
-        right: 20px;
-      }
-      .floral-circle {
-        width: 280px;
-        height: 280px;
-      }
-      h2 {
-        font-size: 2.5rem;
-        margin-top: -20px; /* Ajuste para acercar texto */
-      }
-      .date {
-        font-size: 1.4rem;
-      }
-      .countdown {
-        font-size: 1.3rem;
-      }
-      .info {
-        font-size: 1rem;
-      }
-      .letter-page {
-        padding: 20px;
-      }
-      .envelope-flap {
-        height: 50%;
-      }
+      .envelope-container { height: 400px; }
+      .seal { width: 70px; height: 70px; font-size: 14px; }
+      .floral-circle { width: 280px; height: 280px; }
+      h2 { font-size: 2.5rem; margin-top: -20px; }
+      .date { font-size: 1.4rem; }
+      .letter-page { padding: 20px; }
+      .initials { font-size: 2.5rem; }
     }
 
     @media (max-width: 500px) {
-      .envelope-container {
-        height: 350px;
-      }
-      .seal {
-        width: 60px;
-        height: 60px;
-        font-size: 12px;
-        bottom: 15px;
-        right: 15px;
-      }
-      .floral-circle {
-        width: 220px;
-        height: 220px;
-      }
-      h2 {
-        font-size: 2rem;
-        margin-top: -20px; /* Ajuste para acercar texto */
-      }
-      .date {
-        font-size: 1.2rem;
-      }
-      .countdown {
-        font-size: 1.1rem;
-      }
-      .info {
-        font-size: 0.9rem;
-      }
-      .letter-page {
-        padding: 15px;
-      }
-      .envelope-flap {
-        height: 45%;
-      }
+      .envelope-container { height: 350px; }
+      .seal { width: 60px; height: 60px; font-size: 12px; }
+      .floral-circle { width: 220px; height: 220px; }
+      h2 { font-size: 2rem; }
+      .date { font-size: 1.2rem; }
+      .letter-page { padding: 15px; }
+      .initials { font-size: 2rem; }
     }
 
     @media (max-width: 400px) {
-      .floral-circle {
-        width: 180px;
-        height: 180px;
-      }
-      h2 {
-        font-size: 1.8rem;
-        margin-top: -15px; /* Ajuste extra para pantallas pequeñas */
-      }
+      .floral-circle { width: 180px; height: 180px; }
+      h2 { font-size: 1.8rem; }
+      .initials { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -390,12 +357,12 @@
         <div class="letter" id="letter">
           <div class="letter-page letter-front">
             <h3 style="font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #5a4a3a; margin-bottom: 20px; transform: rotate(-2deg);">Noel & Daysi</h3>
-            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3em; color: #3d322c; line-height: 1.6; transform: rotate(-1deg);">
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3em; color: var(--text-color); line-height: 1.6; transform: rotate(-1deg);">
               ¡Te esperamos en nuestro día más especial!
             </p>
           </div>
           <div class="letter-page letter-back">
-            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: #3d322c; line-height: 1.6; margin-bottom: 20px;">
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: var(--text-color); line-height: 1.6; margin-bottom: 20px;">
               "El amor no tiene edad, ni tiempo, ni lugar. Juntos en este viaje, creando nuestro propio camino."
             </p>
             <p style="font-family: 'Great Vibes', cursive; font-size: 1.5em; color: #5a4a3a; margin-top: 30px; transform: rotate(1deg);">
@@ -403,7 +370,11 @@
             </p>
           </div>
         </div>
-        <div class="envelope-flap"></div>
+        <div class="envelope-flap">
+          <div class="initials-container">
+            <div class="initials">N & D</div>
+          </div>
+        </div>
         <div class="seal" id="seal">Abrir</div>
       </div>
     </div>
@@ -411,85 +382,110 @@
 
   <div class="invitation-content" id="invitationContent">
     <div class="floral-circle">
-      <img src="https://i.ibb.co/ymvVNxGP/247d4c06-e698-4878-9ae0-cd1b16a27eba.png" alt="Sello de boda" />
+      <img src="https://i.ibb.co/ymvVNxGP/247d4c06-e698-4878-9ae0-cd1b16a27eba.png" alt="Sello de boda" loading="lazy" />
     </div>
     <h2>¡Nos casamos!</h2>
     <div class="date">4 de julio de 2025 | 6:00 PM a 12:00 AM</div>
     <div class="countdown" id="countdown">Cargando cuenta regresiva...</div>
     <div class="info">
       <p><strong>Ubicación:</strong><br>Ricardo's Barbería, Tijuana, México</p>
-      <a href="https://maps.google.com/maps?q=Ricardo's+Barber%C3%ADa" target="_blank" rel="noopener noreferrer" style="color: #a0522d; text-decoration: underline; margin-top: 10px; display: inline-block;">Ver en Google Maps</a>
+      <a href="https://maps.google.com/maps?q=Ricardo's+Barber%C3%ADa" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color); text-decoration: underline; margin-top: 10px; display: inline-block;">Ver en Google Maps</a>
     </div>
     <a href="https://forms.gle/tu-formulario" target="_blank" class="rsvp-btn" rel="noopener noreferrer">Confirmar Asistencia</a>
   </div>
 
   <script>
-    const countdown = document.getElementById("countdown");
-    const targetDate = new Date("2025-07-04T18:00:00").getTime();
+    // Precargar sonidos
+    const sounds = {
+      break: new Audio('https://www.soundjay.com/mechanical/sounds/paper-tearing-01.mp3'),
+      open: new Audio('https://www.soundjay.com/mechanical/sounds/zipper-1.mp3'),
+      paper: new Audio('https://www.soundjay.com/mechanical/sounds/paper-crumple-01.mp3')
+    };
+    
+    // Configurar volúmenes
+    Object.values(sounds).forEach(sound => {
+      sound.volume = 0.3;
+      sound.load();
+    });
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-      if (distance < 0) {
-        countdown.innerHTML = "¡Ya es el gran día!";
-        return;
+    // Cuenta regresiva
+    function initCountdown() {
+      const countdown = document.getElementById("countdown");
+      const targetDate = new Date("2025-07-04T18:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        
+        if (distance < 0) {
+          countdown.innerHTML = "¡Ya es el gran día!";
+          return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hrs = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        countdown.innerHTML = `${days} días, ${hrs} horas, ${mins} minutos, ${secs} segundos`;
       }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hrs = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const secs = Math.floor((distance % (1000 * 60)) / 1000);
-      countdown.innerHTML = `${days} días, ${hrs} horas, ${mins} minutos, ${secs} segundos`;
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    // Animación de apertura del sobre - Versión corregida
+    function initEnvelopeAnimation() {
+      const seal = document.getElementById("seal");
+      const envelope = document.getElementById("envelope");
+      const letter = document.getElementById("letter");
+      const envelopeOverlay = document.getElementById("envelopeOverlay");
+      const invitationContent = document.getElementById("invitationContent");
 
-    const seal = document.getElementById("seal");
-    const envelope = document.getElementById("envelope");
-    const letter = document.getElementById("letter");
-    const envelopeOverlay = document.getElementById("envelopeOverlay");
-    const invitationContent = document.getElementById("invitationContent");
+      seal.addEventListener('click', function() {
+        // Desactivar interacciones durante la animación
+        seal.style.pointerEvents = 'none';
+        seal.style.animation = 'none';
 
-    seal.addEventListener('click', function() {
-      seal.style.pointerEvents = 'none';
-      seal.style.animation = 'none';
-
-      const breakSound = new Audio('https://www.soundjay.com/mechanical/sounds/paper-tearing-01.mp3');
-      breakSound.volume = 0.4;
-      breakSound.play();
-
-      seal.style.transform = 'scale(1.1) rotate(10deg)';
-      
-      setTimeout(() => {
-        seal.style.opacity = '0';
-        seal.style.transform = 'scale(0.8) rotate(20deg)';
-
-        const openSound = new Audio('https://www.soundjay.com/mechanical/sounds/zipper-1.mp3');
-        openSound.volume = 0.3;
-        openSound.play();
-
-        envelope.classList.add('open');
+        // Sonido de romper el sello
+        sounds.break.play();
+        seal.style.transform = 'scale(1.1) rotate(10deg)';
         
         setTimeout(() => {
-          letter.classList.add('open');
-          
-          const paperSound = new Audio('https://www.soundjay.com/mechanical/sounds/paper-crumple-01.mp3');
-          paperSound.volume = 0.3;
-          paperSound.play();
+          seal.style.opacity = '0';
+          seal.style.transform = 'scale(0.8) rotate(20deg)';
+
+          // Sonido de abrir el sobre
+          sounds.open.play();
+          envelope.classList.add('open');
           
           setTimeout(() => {
-            envelopeOverlay.classList.add('fade-out');
+            // Asegurar que la carta esté visible antes de girar
+            letter.style.zIndex = '5';
+            letter.classList.add('open');
+            
+            // Sonido de papel
+            sounds.paper.play();
             
             setTimeout(() => {
-              envelopeOverlay.style.display = 'none';
-              invitationContent.classList.add('show');
-            }, 2000);
-          }, 3500);
-        }, 1500);
-      }, 300);
+              envelopeOverlay.classList.add('fade-out');
+              
+              setTimeout(() => {
+                envelopeOverlay.style.display = 'none';
+                invitationContent.classList.add('show');
+              }, 2000);
+            }, 3500);
+          }, 1500);
+        }, 300);
+      });
+    }
+
+    // Inicializar todo cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      initCountdown();
+      initEnvelopeAnimation();
     });
   </script>
 </body>
 </html>
-
 
