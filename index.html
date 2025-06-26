@@ -83,106 +83,85 @@
     }
 
     /* Estilos de la carta - Solución definitiva */
-   .letter {
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  top: 5%;
-  left: 5%;
-  z-index: 3;
-  transform-style: preserve-3d;
-  transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  background: var(--paper-bg); /* 👈 fondo neutro mientras gira */
-}
+    .letter {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+      z-index: 3;
+      transform-style: preserve-3d;
+      transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      background: transparent; /* Fondo transparente para evitar el blanco */
+    }
 
-.letter {
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  top: 5%;
-  left: 5%;
-  z-index: 3;
-  transform-style: preserve-3d;
-  transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
-  background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc); /* 🟠 fondo como el front */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
+    /* Ocultamos la cara no visible */
+    .letter-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      border: 2px double var(--primary-color);
+      border-radius: 12px;
+      padding: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      z-index: 1;
+      background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc); /* Mismo fondo para ambas caras */
+    }
 
-/* Ocultamos la cara no visible */
-.letter-page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0d0b0;
-  padding: 40px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  border: 8px double var(--primary-color);
-  border-radius: 12px;
-}
+    /* Frente de la carta */
+    .letter-front {
+      transform: rotateY(0deg);
+      opacity: 1;
+      z-index: 2;
+      transition: transform 2s ease, opacity 2s ease;
+    }
 
-.letter-front {
-  transform: translateX(0);
-  background: linear-gradient(to bottom, var(--paper-bg), #f5e9dc);
-  opacity: 1;
-  z-index: 2;
-  transition: transform 2s ease, opacity 2s ease;
-}
+    /* Reverso de la carta */
+    .letter-back {
+      transform: rotateY(180deg);
+      opacity: 0;
+      z-index: 1;
+      transition: transform 2s ease, opacity 2s ease;
+    }
 
-.letter-back {
-  transform: translateX(100%);
-  background: var(--paper-bg);
-  opacity: 0;
-  z-index: 1;
-  transition: transform 2s ease, opacity 2s ease;
-}
+    /* Transición al abrir */
+    .letter.open .letter-front {
+      transform: rotateY(180deg);
+      opacity: 0;
+      z-index: 1;
+    }
 
-.letter.open .letter-front {
-  transform: translateX(-100%);
-  opacity: 0;
-  z-index: 1;
-}
+    .letter.open .letter-back {
+      transform: rotateY(360deg);
+      opacity: 1;
+      z-index: 2;
+    }
 
-.letter.open .letter-back {
-  transform: translateX(0);
-  opacity: 1;
-  z-index: 2;
-}
-
-
-
-  .envelope-flap {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #e8d7c5; /* o var(--envelope-color) */
-  border-radius: 5px 5px 0 0;
-  z-index: 4;
-  transform-origin: top;
-  transform: rotateX(0deg);
-  transition: transform 1.5s cubic-bezier(0.33, 1, 0.68, 1);
-
-  /* Marco tipo letter-page */
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-
-
-
+    .envelope-flap {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #e8d7c5;
+      border-radius: 5px 5px 0 0;
+      z-index: 4;
+      transform-origin: top;
+      transform: rotateX(0deg);
+      transition: transform 1.5s cubic-bezier(0.33, 1, 0.68, 1);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
 
     .envelope.open .envelope-flap {
       transform: rotateX(180deg);
@@ -248,7 +227,7 @@
       font-family: 'Playfair Display', serif;
       opacity: 0;
       transition: opacity 2s ease;
-      border: 2px solid var(--primary-color);
+      border: 1px solid var(--primary-color);
       box-shadow: 0 0 8px rgba(160, 82, 45, 0.4);
     }
 
